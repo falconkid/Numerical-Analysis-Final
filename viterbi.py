@@ -2,7 +2,7 @@ import numpy as np
 import scipy.optimize as opt
 from scipy.integrate import solve_ivp
 
-N = 10000
+N = 1000
 L = 50.
 
 M = 100
