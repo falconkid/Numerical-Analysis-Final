@@ -1,28 +1,33 @@
 import numpy as np
 import scipy.optimize as opt
-from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
 
-L = 5.
+L = 5.  # total length of the route
 
-M = 100
-T = 1.
+M = 100 # number of time intervals
+T = 1.  # total time elapse
+dt = T/M # time interval
 
-dt = T/M
+# Physical constants
+m=1. # mass
+g = 10. # gravitational accleration
 
-g = 10.
-def solve_laplacian(start_pos,end_pos):
+# Main function to solve the track
+def solve_lagrangian(start_pos,end_pos):
+    # All the position points(including head and tail)
+        #linearly distributed initialization
+    track = np.linspace(start_pos,end_pos,M)
     
-    positions = np.linspace(start_pos,end_pos,M)
-    ###################
+    # Track points(head and tail,excluded)
     track = np.delete(positions,0,0)
-    positions = np.append(positions,end_pos)
-    m=1.
-    def total_s(track):
+    
+    def total_s(track):# Total action
+        # All the position points(including head and tail)
         pos = np.append(track,end_pos)
         pos = np.insert(pos,0,start_pos)
-        def delta_s (init_pos,final_pos):
+        
+        def delta_s (init_pos,final_pos):#action within a time interval
 
             def Lagrangian(m,v,pos):
                 K = 0.5* m *(v**2)
@@ -34,7 +39,6 @@ def solve_laplacian(start_pos,end_pos):
             return dt * Lagrangian(m,v,pos_ave)
         
         return np.sum(delta_s(pos[0:-1],pos[1:]))    
-    ###################
     
     result = opt.minimize(total_s,track)
     track = np.array(result.x)
@@ -46,7 +50,7 @@ if __name__ == '__main__':
     start = L *0
     end   = L *1.0
     t  = np.linspace(0,T,M+1)
-    track = solve_laplacian(start,end)
+    track = solve_lagrangian(start,end)
     stnd = 5. *(t**2)
     
     
