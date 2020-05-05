@@ -20,7 +20,7 @@ def solve_lagrangian(start_pos,end_pos):
     track = np.linspace(start_pos,end_pos,M)
     
     # Track points(head and tail,excluded)
-    track = np.delete(positions,0,0)
+    track = np.delete(track,0,0)
     
     def total_s(track):# Total action
         # All the position points(including head and tail)
