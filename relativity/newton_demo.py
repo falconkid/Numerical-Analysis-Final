@@ -3,7 +3,7 @@ import scipy.optimize as opt
 import matplotlib.pyplot as plt
 
 
-L = (3**0.5)/2.  # total length of the route
+L = 1.  # total length of the route
 
 N = 100 # number of time intervals
 T = float(np.pi*8)  # total time elapse
@@ -86,8 +86,8 @@ if __name__ == '__main__':
     rk2_newton = solve_rk2_newton(start,v0)
     rk4_newton = solve_rk4_newton(start,v0)
     stnd = np.sin(t)
-    print("rk2:"+str(np.sum((rk2_newton-stnd)**2)))
-    print("rk4:"+str(np.sum((rk4_newton-stnd)**2)))
+    print("rk2 error:"+str(np.sum((rk2_newton-stnd)**2)/len(stnd)))
+    print("rk4 error:"+str(np.sum((rk4_newton-stnd)**2)/len(stnd)))
     
     plt.plot(t, stnd, color ='blue', linewidth =2, linestyle ='-',label = 'standard')
     plt.plot(t, euler_newton, color ='green', linewidth =2, linestyle =':',label = 'euler_newton')
