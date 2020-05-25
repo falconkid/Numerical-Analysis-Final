@@ -16,7 +16,7 @@ L = m*V_peri*L_peri
 E = 0.5*(V_peri**2) -G*M/L_peri
 a = -G*M/(2*E)
 
-alpha = 3*(L**2)/(c**2)/(m**2)*5e05#Adjustment Parameter#You can touch
+alpha = 3*(L**2)/(c**2)/(m**2)*1e05#Adjustment Parameter#You can touch
 
 P = 10 #Number of rotation#You can touch
 
@@ -65,12 +65,7 @@ if __name__ == '__main__':
 
         rk4_newton = solve_rk4_newton(start,v0)
         x_newton = rk4_newton[:,0]
-        y_newton = rk4_newton[:,1]
-
-        init_angle = np.arctan((rk4_newton[0]-rk4_newton[half])[1]/(rk4_newton[0]-rk4_newton[half])[0])
-        last_angle = np.arctan((rk4_newton[-1]-rk4_newton[-1-half])[1]/(rk4_newton[-1]-rk4_newton[-1-half])[0])
-        print('precession angle:'+str(last_angle-init_angle))
-        
+        y_newton = rk4_newton[:,1]      
         plt.plot(x_newton,y_newton, color ='green', linewidth =1, linestyle ='-',label = 'newton')
     
     plt.legend(loc='lower left')
